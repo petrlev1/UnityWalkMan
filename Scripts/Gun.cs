@@ -11,10 +11,10 @@ public class Gun : MonoBehaviour
 	public GameObject PulaPos;
 	public GameObject GunPula;
      public float speed;
-	 public float FireDist = 0.18f;
-	 public bool Fire;
-	 public bool FireAutomate;
-	 public float FireAutomateDist = 400f;
+	 public float FireDist = 400;
+	 private bool Fire;
+	 public bool FireAutomate = true;
+	 //public float FireAutomateDist = 400f;
 	
     void Start()
     {
@@ -57,47 +57,49 @@ public class Gun : MonoBehaviour
 	if ( Input.GetMouseButtonDown(0) || Input.GetKeyDown("e") ) {
 		
 		this.GetComponent<Gun>().Fire = true;
-		StartCoroutine(FireOff());
-		
+		//StartCoroutine(FireOff());
 		
 		//Instantiate(GameObject.Find("GunPula"), GunPula.transform.position, transform.rotation); //Гильзы
 	
 	}
 	
-	if ( Input.GetKey("r") ) {
+	//Функция автомата
+	if ( FireAutomate == true ) {
 		
-		this.GetComponent<Gun>().FireAutomate = true;
-		//StartCoroutine(FireAutomateOff());
+	FireAutomateFunc();
 	
-	} else {
-		this.GetComponent<Gun>().FireAutomate = false;
 	}
 	
-	if ( this.GetComponent<Gun>().Fire == true ) {
+	
+	if ( this.GetComponent<Gun>().Fire == true && (this.transform.position - GunPula.transform.position).sqrMagnitude < FireDist ) {
+		
+		GunPula.transform.position += transform.TransformDirection (Vector3.fwd) * speed2;
+		
+		if ( (this.transform.position - GunPula.transform.position).sqrMagnitude > FireDist ) {
+	
+	    Instantiate(GameObject.Find("GunPula"), GunPula.transform.position, transform.rotation);
+		this.GetComponent<Gun>().Fire = false;
+	
+	    }
 	
 	//GunPula.transform.position = Vector3.MoveTowards(GunPula.transform.position, GunAim.transform.position, step );
 	//GunPula.transform.position = new Vector3( GunPula.transform.localPosition.x, 1, GunPula.transform.localPosition.z + step );
-	GunPula.transform.position += transform.TransformDirection (Vector3.fwd) * speed2;
+	//GunPula.transform.position += transform.TransformDirection (Vector3.fwd) * speed2;
 	
 	//Instantiate(GameObject.Find("GunPula"), GunPula.transform.position, transform.rotation); //След от пули
 	
-	Debug.Log ( (this.transform.position - GunPula.transform.position).sqrMagnitude );
+	//Debug.Log ( (this.transform.position - GunPula.transform.position).sqrMagnitude );
 	
-	
-	
-	} else if ( this.GetComponent<Gun>().FireAutomate == true && (this.transform.position - GunPula.transform.position).sqrMagnitude < FireAutomateDist ) {
-	
-	GunPula.transform.position += transform.TransformDirection (Vector3.fwd) * speed2;
-	
-	if ( (this.transform.position - GunPula.transform.position).sqrMagnitude > FireAutomateDist - 50 ) {
-	
-	Instantiate(GameObject.Find("GunPula"), GunPula.transform.position, transform.rotation);
 	
 	}
 	
+	//GunPula.transform.position += transform.TransformDirection (Vector3.fwd) * speed2;
+	
+	
+	
 	//Debug.Log ("FireAutomate");
 
-	} else {
+	else {
 		
 		GunPula.transform.position = PulaPos.transform.position;
 		
@@ -112,22 +114,37 @@ public class Gun : MonoBehaviour
         Pules.GetComponent<Rigidbody>().useGravity = true;
     }
     }
+	
         
     }
 	
 	
-	IEnumerator FireOff()
+	void FireAutomateFunc() {
+		
+		if ( Input.GetMouseButton(0) || Input.GetKey("e") ) {
+		
+		this.GetComponent<Gun>().Fire = true;
+		//StartCoroutine(FireAutomateOff());
+	
+	} else {
+		this.GetComponent<Gun>().Fire = false;
+	}
+		
+	}
+	
+	
+	/* IEnumerator FireOff()
     {
 
         yield return new WaitForSeconds( FireDist );
 		this.GetComponent<Gun>().Fire = false;
-		this.GetComponent<Gun>().FireAutomate = false;
-		Instantiate(GameObject.Find("GunPula"), GunPula.transform.position, transform.rotation);
+		//this.GetComponent<Gun>().FireAutomate = false;
+		//Instantiate(GameObject.Find("GunPula"), GunPula.transform.position, transform.rotation);
 		
 		
 		//GunPula.transform.localPosition = new Vector3( 0,0,0.476f );
 
-    }
+    } */
 
 	
 }

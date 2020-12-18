@@ -1085,9 +1085,10 @@ MonoBehaviour:
   GunAim: {fileID: 150910584}
   PulaPos: {fileID: 2052734972}
   GunPula: {fileID: 1513497176}
-  speed: 100
-  WaitTime: 0.18
+  speed: 200
+  FireDist: 400
   Fire: 0
+  FireAutomate: 0
 --- !u!1001 &2005393631
 PrefabInstance:
   m_ObjectHideFlags: 0
