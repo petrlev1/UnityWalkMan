@@ -9,7 +9,6 @@ public class Gun : MonoBehaviour
 	//public GameObject GunBody;
 	//public GameObject GunAim;
 	public GameObject GunPula;
-	public GameObject PulaPos;
      public float PulaSpeed;
 	 public float FireDist = 400;
 	 private bool Fire;
@@ -110,7 +109,8 @@ public class Gun : MonoBehaviour
 
 	else {
 		
-		GunPula.transform.position = PulaPos.transform.position;
+		//GunPula.transform.position = PulaPos.transform.position;
+		GunPula.transform.localPosition = new Vector3( 0, 0, 0.66f );
 		GunGilza.transform.position = GunGilzaPos.transform.position;
 		
 	}
