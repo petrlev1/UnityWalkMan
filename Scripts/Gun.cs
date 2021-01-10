@@ -12,13 +12,13 @@ public class Gun : MonoBehaviour
      public float PulaSpeed;
 	 public float FireDist = 400;
 	 private bool Fire;
-	 public bool FireAutomate = true;
+	 public bool AutomateMode = true;
 	 public bool PaintballMode = true;
 	 
 	 public GameObject GunGilza;
-	 public GameObject GunGilzaPos;
+	 //public GameObject GunGilzaPos;
 	 public bool GunGilziMode = true;
-	 //public float FireAutomateDist = 400f;
+	 //public float AutomateModeDist = 400f;
 	
     void Start()
     {
@@ -68,9 +68,16 @@ public class Gun : MonoBehaviour
 	}
 	
 	//Функция автомата
-	if ( FireAutomate == true ) {
+	if ( AutomateMode == true ) {
 		
-	FireAutomateFunc();
+	if ( Input.GetMouseButton(0) || Input.GetKey("e") ) {
+		
+		this.GetComponent<Gun>().Fire = true;
+		//StartCoroutine(AutomateModeOff());
+	
+	} else {
+		this.GetComponent<Gun>().Fire = false;
+	}
 	
 	}
 	
@@ -90,8 +97,8 @@ public class Gun : MonoBehaviour
 		
 		//Гильзы
 		if ( this.GetComponent<Gun>().GunGilziMode == true ) {
-		GunGilza.transform.position += transform.TransformDirection (Vector3.right) * (PulaSpeed * Time.deltaTime);
-		Instantiate(GameObject.Find("GunGilza"), GunGilzaPos.transform.position, transform.rotation);
+		//GunGilza.transform.position += transform.TransformDirection (Vector3.right) * (PulaSpeed * Time.deltaTime);
+		Instantiate(GameObject.Find("GunGilza"), this.transform.position, transform.rotation);
 		}
 	
 	    }
@@ -105,13 +112,13 @@ public class Gun : MonoBehaviour
 	
 	
 	
-	//Debug.Log ("FireAutomate");
+	//Debug.Log ("AutomateMode");
 
 	else {
 		
 		//GunPula.transform.position = PulaPos.transform.position;
-		GunPula.transform.localPosition = new Vector3( 0, 0, 0.66f );
-		GunGilza.transform.position = GunGilzaPos.transform.position;
+		GunPula.transform.localPosition = new Vector3( 0, 0, 0.5f );
+		GunGilza.transform.localPosition = new Vector3( 0,0,0 );
 		
 	}
 	
@@ -122,6 +129,7 @@ public class Gun : MonoBehaviour
     if( Pules.name == "GunPula(Clone)" || Pules.name == "GunGilza(Clone)" )
     {
         Pules.GetComponent<Rigidbody>().useGravity = true;
+		Pules.GetComponent<SphereCollider>().enabled = true;
     }
     }
 	
@@ -129,18 +137,7 @@ public class Gun : MonoBehaviour
     }
 	
 	
-	void FireAutomateFunc() {
-		
-		if ( Input.GetMouseButton(0) || Input.GetKey("e") ) {
-		
-		this.GetComponent<Gun>().Fire = true;
-		//StartCoroutine(FireAutomateOff());
 	
-	} else {
-		this.GetComponent<Gun>().Fire = false;
-	}
-		
-	}
 	
 	
 	/* IEnumerator FireOff()
@@ -148,7 +145,7 @@ public class Gun : MonoBehaviour
 
         yield return new WaitForSeconds( FireDist );
 		this.GetComponent<Gun>().Fire = false;
-		//this.GetComponent<Gun>().FireAutomate = false;
+		//this.GetComponent<Gun>().AutomateMode = false;
 		//Instantiate(GameObject.Find("GunPula"), GunPula.transform.position, transform.rotation);
 		
 		
