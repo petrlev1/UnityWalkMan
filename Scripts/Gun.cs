@@ -11,7 +11,7 @@ public class Gun : MonoBehaviour
 	public GameObject GunPula;
      public float PulaSpeed;
 	 public float FireDist = 400;
-	 private bool Fire;
+	 public bool Fire;
 	 public bool AutomateMode = true;
 	 public bool PaintballMode = true;
 	 
@@ -19,9 +19,13 @@ public class Gun : MonoBehaviour
 	 //public GameObject GunGilzaPos;
 	 public bool GunGilziMode = true;
 	 //public float AutomateModeDist = 400f;
+	 
+	 AudioSource shot;
 	
     void Start()
     {
+		
+		shot = GetComponent<AudioSource>();
         
     }
 
@@ -61,10 +65,19 @@ public class Gun : MonoBehaviour
 	if ( Input.GetMouseButtonDown(0) || Input.GetKeyDown("e") ) {
 		
 		this.GetComponent<Gun>().Fire = true;
+		
+		shot.Play();
+		
 		//StartCoroutine(FireOff());
 		
 		//Instantiate(GameObject.Find("GunPula"), GunPula.transform.position, transform.rotation); //Гильзы
 	
+	}
+	
+	if ( Input.GetMouseButtonUp(0) ) {
+		
+		shot.Stop();
+		
 	}
 	
 	//Функция автомата
@@ -73,6 +86,9 @@ public class Gun : MonoBehaviour
 	if ( Input.GetMouseButton(0) || Input.GetKey("e") ) {
 		
 		this.GetComponent<Gun>().Fire = true;
+		
+		
+		
 		//StartCoroutine(AutomateModeOff());
 	
 	} else {
@@ -132,6 +148,7 @@ public class Gun : MonoBehaviour
 		Pules.GetComponent<SphereCollider>().enabled = true;
     }
     }
+	
 	
         
     }

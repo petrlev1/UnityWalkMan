@@ -14,9 +14,13 @@ public class GunLesson : MonoBehaviour
     public GameObject GunGilza;
     public bool GunGilziMode = true;
 
+    AudioSource shot;
+
     void Start()
     {
-        
+
+        shot = GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -28,6 +32,13 @@ public class GunLesson : MonoBehaviour
 
             this.GetComponent<GunLesson>().Fire = true;
 
+            shot.Play();
+
+        }
+
+        if (Input.GetMouseButtonUp(0) )
+        {
+            shot.Stop();
         }
 
         if (this.GetComponent<GunLesson>().Fire == true && (this.transform.position - GunPula.transform.position).sqrMagnitude < FireDist)
