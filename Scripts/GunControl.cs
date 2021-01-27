@@ -6,7 +6,6 @@ public class GunControl : MonoBehaviour
 {
 	
     public GameObject GunTarg1;
-	public GameObject GunTarg2;
 	
     void Start()
     {

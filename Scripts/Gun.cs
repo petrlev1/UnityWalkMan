@@ -9,6 +9,7 @@ public class Gun : MonoBehaviour
 	//public GameObject GunBody;
 	//public GameObject GunAim;
 	public GameObject GunPula;
+	private GameObject GunPulaClone;
      public float PulaSpeed;
 	 public float FireDist = 400;
 	 public bool Fire;
@@ -31,35 +32,7 @@ public class Gun : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-		
-		//ЛУЧ
-	//сюда запишется инфо о пересечении луча, если оно будет
-    /* RaycastHit hit;
-    //сам луч, начинается от позиции этого объекта и направлен в сторону цели
-    Ray ray = new Ray(GunBody.transform.position, GunAim.transform.position - GunBody.transform.position);
-    //пускаем луч
-    Physics.Raycast(ray, out hit);
-	//просто для наглядности рисуем луч в окне Scene
-	if (hit.collider != null){
-	Debug.DrawLine(ray.origin, hit.point,Color.red);
-	} */
-	
-	//GunPula.transform.localPosition  = new Vector3( 0, 0, 10 );
-	
-	//Debug.Log( (GunPula.transform.position - PulaTarget.position).sqrMagnitude );
-	
-	//this.transform.InverseTransformPoint(GunPula.transform.position);
-	//GunPula.transform.LookAt( GunPula.transform.position + this.transform.up );
-	
-	//GunPula.transform.rotation = GunPulaController.transform.rotation;
-	//GunPula.transform.position = GunController.transform.TransformDirection (Vector3.fwd);
-	
-	//Debug.Log ( GunPula.transform.rotation );
-	
-    //float speed2 = PulaSpeed * Time.deltaTime;
-	
-	//GunPula.transform.position = new Vector3( 0, 0, GunPula.transform.position.z + step );
+    { 
 	
 	
 	if ( Input.GetMouseButtonDown(0) || Input.GetKeyDown("e") ) {
@@ -141,12 +114,21 @@ public class Gun : MonoBehaviour
 	
 	
 	foreach(GameObject Pules in GameObject.FindGameObjectsWithTag("GunPules"))
+	
     {
+		
     if( Pules.name == "GunPula(Clone)" || Pules.name == "GunGilza(Clone)" )
     {
+		
         Pules.GetComponent<Rigidbody>().useGravity = true;
 		Pules.GetComponent<SphereCollider>().enabled = true;
+		
+		if ( Pules.transform.position.y < -5f ) {
+			Destroy(Pules.gameObject);
+		}
+		
     }
+		
     }
 	
 	
