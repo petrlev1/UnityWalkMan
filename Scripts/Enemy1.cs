@@ -57,11 +57,17 @@ public class Enemy1 : MonoBehaviour
 			
 		} */
 		
+		//Aim.transform.position = new Vector3( Aim.transform.localPosition.x,  Random.Range( 0, 1f), Aim.transform.localPosition.z );
+		
+		//Debug.Log ( Aim.transform.localPosition.y - 3f );
+		
 		if ( FireTime > 1 ) {
 			
-		Enemy1Pula.transform.position = Vector3.MoveTowards( Enemy1Pula.transform.position, Aim.transform.position, Time.deltaTime * 100 );
+		Vector3 FireSpace = new Vector3( Aim.transform.localPosition.x,  Random.Range( Aim.transform.localPosition.y - 3f, Aim.transform.localPosition.y + 3f), Aim.transform.localPosition.z );
+		//Vector3 FireSpace = new Vector3( Random.Range( -0.1f, 0.1f),  Random.Range( -0.5f, 2.5f), Random.Range( -0.1f, 0.1f) );
+		Enemy1Pula.transform.position = Vector3.MoveTowards( Enemy1Pula.transform.position, FireSpace, Time.deltaTime * 50 );
 		
-		if ( Enemy1Pula.transform.position == Aim.transform.position ) {
+		if ( Enemy1Pula.transform.position == FireSpace ) {
 			Count = 0.0f;
 			Enemy1Pula.transform.localPosition = new Vector3( 0, 0, -1 );
 			//StartCoroutine( EnemyFireTime() );

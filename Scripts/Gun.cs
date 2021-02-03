@@ -59,13 +59,9 @@ public class Gun : MonoBehaviour
 	if ( Input.GetMouseButton(0) || Input.GetKey("e") ) {
 		
 		this.GetComponent<Gun>().Fire = true;
-		
-		
-		
-		//StartCoroutine(AutomateModeOff());
 	
 	} else {
-		this.GetComponent<Gun>().Fire = false;
+		//this.GetComponent<Gun>().Fire = false;
 	}
 	
 	}
@@ -95,15 +91,7 @@ public class Gun : MonoBehaviour
 	
 	//Debug.Log ( (this.transform.position - GunPula.transform.position).sqrMagnitude );
 	
-	}
-	
-	//GunPula.transform.position += transform.TransformDirection (Vector3.fwd) * speed2;
-	
-	
-	
-	//Debug.Log ("AutomateMode");
-
-	else {
+	} else {
 		
 		//GunPula.transform.position = PulaPos.transform.position;
 		GunPula.transform.localPosition = new Vector3( 0, 0, 0.5f );
