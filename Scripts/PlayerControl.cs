@@ -8,7 +8,9 @@ public class PlayerControl : MonoBehaviour
 	//Animator m_Animator;
 	//bool Walk;
     
-	//public GameObject PlayerTargetObj;
+	public GameObject Player;
+	public int PlayerHitNum;
+	//public GameObject PlayerHitText;
 	//public float movementSpeed = 5f;
 	
     void Start()
@@ -25,12 +27,12 @@ public class PlayerControl : MonoBehaviour
 		//Анимация
 		if ( Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) )
         {
-			this.GetComponent<Animator>().SetBool("Stay", false);
-            this.GetComponent<Animator>().SetBool("Walk", true);
+			Player.GetComponent<Animator>().SetBool("Stay", false);
+            Player.GetComponent<Animator>().SetBool("Walk", true);
         } else {
 
-            this.GetComponent<Animator>().SetBool("Stay", true);
-			this.GetComponent<Animator>().SetBool("Walk", false);
+            Player.GetComponent<Animator>().SetBool("Stay", true);
+			Player.GetComponent<Animator>().SetBool("Walk", false);
         }
 		
 		
@@ -41,4 +43,17 @@ public class PlayerControl : MonoBehaviour
 		//Debug.Log ( PlayerTargetObj.transform.eulerAngles.y );
         
     }
+	
+	private void OnCollisionEnter(Collision collname)
+{
+	
+	//if( collname.gameObject.name == "Enemy1Pula"  ) {
+		
+		//Debug.Log ( "qqq" );
+		PlayerHitNum = PlayerHitNum + 1;
+		
+		//}
+		
+}
+
 }

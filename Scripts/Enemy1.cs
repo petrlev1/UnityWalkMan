@@ -10,6 +10,7 @@ public class Enemy1 : MonoBehaviour
 	
 	public float Count = 0.0f;
      public int FireTime;
+	public float EnemyDistroysNum;
 	 
 	 //public int enemyCount = 0;
 	
@@ -25,6 +26,8 @@ public class Enemy1 : MonoBehaviour
 		this.transform.position = new Vector3( Random.Range( -15f, 15f), 0, Random.Range( -15f, 15f) );
 		
 		}
+		
+		//PlayerPrefs.SetFloat( "EnemyDistroyNumVar", 1 );
         
     }
 
@@ -45,7 +48,7 @@ public class Enemy1 : MonoBehaviour
 	
 	
 		
-		FireTime = (int)( (Count = Count + Time.deltaTime) % 3 );
+		FireTime = (int)( (Count = Count + Time.deltaTime) % 2 );
 		
 		/* if ( EnemyAppearanceTime > 2 ) {
 			
@@ -61,7 +64,7 @@ public class Enemy1 : MonoBehaviour
 		
 		//Debug.Log ( Aim.transform.localPosition.y - 3f );
 		
-		if ( FireTime > 1 ) {
+		if ( FireTime >= 1 ) {
 			
 		Vector3 FireSpace = new Vector3( Aim.transform.localPosition.x,  Random.Range( Aim.transform.localPosition.y - 3f, Aim.transform.localPosition.y + 3f), Aim.transform.localPosition.z );
 		//Vector3 FireSpace = new Vector3( Random.Range( -0.1f, 0.1f),  Random.Range( -0.5f, 2.5f), Random.Range( -0.1f, 0.1f) );
@@ -89,9 +92,7 @@ public class Enemy1 : MonoBehaviour
 		}
 		
 		
-		//StartCoroutine( EnemyFireTime() );
-		
-		
+		EnemyDistroysNum = PlayerPrefs.GetFloat("EnemyDistroyNumVar");
         
     }
 	
@@ -101,9 +102,25 @@ public class Enemy1 : MonoBehaviour
 			
 		this.GetComponent<Rigidbody>().useGravity = true;
 		
+		//EnemyDistroyNum = EnemyDistroyNum + 1;
+		
+		//PlayerPrefs.GetFloat("EnemyDistroyNumVar") + 1;
+		EnemyDistroysNum = PlayerPrefs.GetFloat("EnemyDistroyNumVar");
+		PlayerPrefs.SetFloat( "EnemyDistroyNumVar", EnemyDistroysNum + 1 );
+		
+		//Debug.Log ( EnemyDistroysNum );
+	
+		//Debug.Log ( EnemyDistroyNum );
+		
 		}
 		
 	}
+	
+	
+	void OnApplicationQuit()
+    {
+        PlayerPrefs.SetFloat( "EnemyDistroyNumVar", 0 );
+    }
 	
 	
 	/* IEnumerator EnemyFireTime()
@@ -115,7 +132,7 @@ public class Enemy1 : MonoBehaviour
 	
 	IEnumerator EnemyAppearance()
     {
-		yield return new WaitForSeconds(3.0f);
+		yield return new WaitForSeconds(2.0f);
 		Instantiate(GameObject.Find("Enemy1"), this.transform.position, transform.rotation);
 	}
 	
