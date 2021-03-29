@@ -23,7 +23,7 @@ public class Enemy1 : MonoBehaviour
 		
 		if ( this.name == "Enemy1(Clone)" ) {
 			
-		this.transform.position = new Vector3( Random.Range( -15f, 15f), 0, Random.Range( -15f, 15f) );
+		this.transform.position = new Vector3( Random.Range( -15f, 15f), 3, Random.Range( -15f, 15f) );
 		
 		}
 		
@@ -64,9 +64,11 @@ public class Enemy1 : MonoBehaviour
 		
 		//Debug.Log ( Aim.transform.localPosition.y - 3f );
 		
+		
 		if ( FireTime >= 1 ) {
 			
-		Vector3 FireSpace = new Vector3( Aim.transform.localPosition.x,  Random.Range( Aim.transform.localPosition.y - 3f, Aim.transform.localPosition.y + 3f), Aim.transform.localPosition.z );
+			Vector3 FireSpace = new Vector3( Aim.transform.localPosition.x,  Random.Range( Aim.transform.localPosition.y - 3f, Aim.transform.localPosition.y + 3f), Aim.transform.localPosition.z );
+			
 		//Vector3 FireSpace = new Vector3( Random.Range( -0.1f, 0.1f),  Random.Range( -0.5f, 2.5f), Random.Range( -0.1f, 0.1f) );
 		Enemy1Pula.transform.position = Vector3.MoveTowards( Enemy1Pula.transform.position, FireSpace, Time.deltaTime * 50 );
 		
@@ -98,7 +100,9 @@ public class Enemy1 : MonoBehaviour
 	
 	private void OnCollisionEnter(Collision collname) {
 		
-		if ( collname.gameObject.name == "GunPula" ) {
+		if ( collname.gameObject.name == "GunPula" || collname.gameObject.name == "GunPula(Clone)" ) {
+			
+			this.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
 			
 		this.GetComponent<Rigidbody>().useGravity = true;
 		
@@ -132,7 +136,7 @@ public class Enemy1 : MonoBehaviour
 	
 	IEnumerator EnemyAppearance()
     {
-		yield return new WaitForSeconds(2.0f);
+		yield return new WaitForSeconds(3.0f);
 		Instantiate(GameObject.Find("Enemy1"), this.transform.position, transform.rotation);
 	}
 	

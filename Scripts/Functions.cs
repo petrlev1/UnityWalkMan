@@ -17,9 +17,14 @@ public class Functions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		
-		//Timer();
-        
+
+        //Timer();
+
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
+
     }
 	
 	
