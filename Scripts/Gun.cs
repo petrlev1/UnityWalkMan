@@ -76,26 +76,28 @@ public class Gun : MonoBehaviour
 		GunPula2.transform.position += GunPula2.transform.TransformDirection (Vector3.fwd) * (PulaSpeed * Time.deltaTime);
 		GunPula2.GetComponent<CapsuleCollider>().enabled = true;
 		GunPula2.transform.rotation = Quaternion.Euler( TargObj2.transform.eulerAngles.x, TargObj.transform.eulerAngles.y, 100 );
-		
-		/* if ( (this.transform.position - GunPula2.transform.position).sqrMagnitude > FireDist ) {
-	
-	    //Пейнтбол режим
-		if ( this.GetComponent<Gun>().PaintballMode == true ) {
-		Instantiate(GameObject.Find("GunPula"), GunPula.transform.position, transform.rotation);
-		}
-		
 
-		//Гильзы
-		if ( this.GetComponent<Gun>().GunGilziMode == true ) {
-		GunGilza.transform.position += transform.TransformDirection (Vector3.right) * (PulaSpeed * Time.deltaTime);
-		Instantiate(GameObject.Find("GunGilza"), this.transform.position, transform.rotation);
-		}
-	
-	    } */
-	
-	//Debug.Log ( (this.transform.position - GunPula.transform.position).sqrMagnitude );
-	
-	} else {
+		//GunPula2.GetComponent<Light>().enabled = true;
+
+			/* if ( (this.transform.position - GunPula2.transform.position).sqrMagnitude > FireDist ) {
+
+			//Пейнтбол режим
+			if ( this.GetComponent<Gun>().PaintballMode == true ) {
+			Instantiate(GameObject.Find("GunPula"), GunPula.transform.position, transform.rotation);
+			}
+
+
+			//Гильзы
+			if ( this.GetComponent<Gun>().GunGilziMode == true ) {
+			GunGilza.transform.position += transform.TransformDirection (Vector3.right) * (PulaSpeed * Time.deltaTime);
+			Instantiate(GameObject.Find("GunGilza"), this.transform.position, transform.rotation);
+			}
+
+			} */
+
+			//Debug.Log ( (this.transform.position - GunPula.transform.position).sqrMagnitude );
+
+		} else {
 		
 		//GunPula.transform.position = PulaPos.transform.position;
 		//GunPula.transform.localPosition = new Vector3( 0, 0, 2f );
@@ -105,8 +107,9 @@ public class Gun : MonoBehaviour
 		//GunPula2.transform.rotation = Quaternion.Euler( TargObj2.transform.eulerAngles.x, TargObj.transform.eulerAngles.y, transform.eulerAngles.z );
 		GunPula2.transform.rotation = Quaternion.Euler( TargObj2.transform.eulerAngles.x, TargObj.transform.eulerAngles.y, 180 );
 		GunPula2.GetComponent<CapsuleCollider>().enabled = false;
-		
-	}
+			//GunPula2.GetComponent<Light>().enabled = false;
+
+		}
 	
 	
 	/* foreach(GameObject Pules in GameObject.FindGameObjectsWithTag("GunPules")) {
